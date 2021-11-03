@@ -10,6 +10,6 @@ class GoogleSignIn::BaseController < ActionController::Base
         GoogleSignIn.client_secret,
         authorize_url: 'https://accounts.google.com/o/oauth2/auth',
         token_url: 'https://oauth2.googleapis.com/token',
-        redirect_uri: callback_url
+        redirect_uri: ENV['GOOGLE_SIGN_IN_MAIN_DOMAIN'] + callback_path
     end
 end
