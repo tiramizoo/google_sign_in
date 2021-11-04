@@ -5,16 +5,11 @@ class GoogleSignIn::BaseController < ActionController::Base
 
   private
     def client
-      callback
       @client ||= OAuth2::Client.new \
         GoogleSignIn.client_id,
         GoogleSignIn.client_secret,
         authorize_url: 'https://accounts.google.com/o/oauth2/auth',
         token_url: 'https://oauth2.googleapis.com/token',
-        redirect_uri: ENV['GOOGLE_SIGN_IN_MAIN_DOMAIN'] + callback_path
-    end
-
-    def callback
-      @callback ||= callback_url
+        redirect_uri: ENV['GOOGLE_SIGN_IN_MAIN_DOMAIN'] + callback_path(callback_to: callback_url)
     end
 end
