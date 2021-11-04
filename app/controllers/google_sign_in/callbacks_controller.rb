@@ -34,12 +34,4 @@ class GoogleSignIn::CallbacksController < GoogleSignIn::BaseController
     def error_message_for(error_code)
       error_code.presence_in(GoogleSignIn::OAUTH2_ERRORS) || "invalid_request"
     end
-
-    def callback_to
-      subdomain = params[:callback_subdomain]
-      uri = URI(request.original_url)
-      domain_host = uri.host.split('.').last(2).join('.')
-
-      "#{uri.scheme}://#{subdomain}.#{domain_host}#{request.original_fullpath}"
-    end
 end
