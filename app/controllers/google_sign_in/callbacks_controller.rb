@@ -2,13 +2,10 @@ require 'google_sign_in/redirect_protector'
 
 class GoogleSignIn::CallbacksController < GoogleSignIn::BaseController
   def show
-    if params[:return_to].present?
-      params_without_return_to = params
-      params_without_return_to.delete(:return_to)
-
-      redirect_to params[:return_to](params_without_return_to)
-    else
+    if request.original_url.include?(callback)
       redirect_to proceed_to_url, flash: { google_sign_in: google_sign_in_response }
+    else
+      redirect_to callback(request.query_parameters)
     end
   rescue GoogleSignIn::RedirectProtector::Violation => error
     logger.error error.message
