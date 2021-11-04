@@ -2,11 +2,7 @@ require 'google_sign_in/redirect_protector'
 
 class GoogleSignIn::CallbacksController < GoogleSignIn::BaseController
   def show
-    # if params[:subdomain].present? && !request.original_url.include?(params[:subdomain])
-    #   redirect_to callback_to
-    # else
-      redirect_to proceed_to_url + '?' + { google_sign_in: google_sign_in_response }.to_query
-    # end
+    redirect_to proceed_to_url + '?' + { google_sign_in: google_sign_in_response }.to_query
   rescue GoogleSignIn::RedirectProtector::Violation => error
     logger.error error.message
     head :bad_request
