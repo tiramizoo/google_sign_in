@@ -17,14 +17,7 @@ module GoogleSignIn
     private
       def origin_of(url)
         uri = URI(url)
-
-        if uri.host.split('.').size > 2
-          domain_host = uri.host.split('.').last(2).join('.')
-        else
-          domain_host = uri.host
-        end
-
-        "#{uri.scheme}://#{domain_host}:#{uri.port}"
+        "#{uri.scheme}://#{uri.host}:#{uri.port}"
       rescue ArgumentError
         nil
       end
