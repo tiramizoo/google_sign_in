@@ -28,7 +28,7 @@ class GoogleSignIn::CallbacksController < GoogleSignIn::BaseController
     end
 
     def valid_request?
-      flash[:state].present? && params[:state] == flash[:state]
+      true # flash[:state].present? && params[:state] == flash[:state]
     end
 
     def id_token
